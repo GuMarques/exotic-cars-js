@@ -1,21 +1,23 @@
-import { FC, useState } from "react";
-import {
-  SearchContainer,
-  PinContainer,
-  InputContainer,
-  TextInput,
-  HrInput,
-  CalendarContainer,
-} from "./styles";
-import pin from "../../assets/icons/pin.png";
-import Flatpickr from "react-flatpickr";
-import calendar from "../../assets/icons/calendar-sharp.svg";
-import { useAnimate } from "react-simple-animate";
 import "flatpickr/dist/themes/material_green.css";
+import { FC, useState } from "react";
+import Flatpickr from "react-flatpickr";
+import { useAnimate } from "react-simple-animate";
+import calendar from "../../assets/icons/calendar-sharp.svg";
+import pin from "../../assets/icons/pin.png";
+import DatePicker from "../DatePicker";
+import {
+  CalendarContainer,
+  HrInput,
+  InputContainer,
+  PinContainer,
+  SearchContainer,
+  TextInput,
+} from "./styles";
 
 const SearchBox: FC<{}> = (props) => {
   const [isOnFocus, setIsOnFocus] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const { play, style, isPlaying } = useAnimate({
     start: { width: "0%" },
     end: { width: "100%" },
@@ -40,14 +42,12 @@ const SearchBox: FC<{}> = (props) => {
         <HrInput style={style} />
       </InputContainer>
       <CalendarContainer src={calendar} />
-      <Flatpickr
-        options={{
-          dateFormat: "d/m/Y",
-        }}
-        value={selectedDate}
-        onChange={([date]) => {
-          setSelectedDate(date);
-        }}
+      <button onClick={() => setShowDatePicker((prevState) => !prevState)}>
+        Click Me
+      </button>
+      <DatePicker
+        openDatePicker={showDatePicker}
+        closeDatePicker={() => setShowDatePicker((prevState) => !prevState)}
       />
     </SearchContainer>
   );
