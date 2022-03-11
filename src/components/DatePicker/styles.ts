@@ -20,12 +20,13 @@ export const DatePickerContainer = styled.div`
   width: 300px;
   top: 80px;
   min-height: 350px;
-  background: #fff;
+  /* background: #fff; */
   border-radius: 20px;
   overflow: hidden;
   padding: 25px 30px;
   display: flex;
   flex-direction: column;
+  background-color: rgba(255, 255, 255, 1);
 `;
 
 export const HeaderContainer = styled.div`
@@ -47,11 +48,10 @@ export const ChangeButton = styled.button`
   justify-content: center;
   cursor: pointer;
   background-color: white;
-  transition: background-color 0.1s linear;
-  transition: transform 0.1s linear;
+  transition: all 0.4s linear;
   :hover {
-    background-color: #a3a3a3;
-    transform: scale(1.1);
+    transition: all 0.4s linear;
+    background-color: #dadada;
   }
 `;
 
@@ -62,12 +62,14 @@ export const DateContainer = styled.div``;
 export const YearText = styled.p`
   margin: 0;
   text-align: center;
+  cursor: default;
 `;
 
 export const MonthText = styled.p`
   margin: 0;
   text-align: center;
   width: 76px;
+  cursor: default;
 `;
 
 export const DaysOfWeekContainer = styled.div`
@@ -83,6 +85,7 @@ export const DaysOfWeekText = styled.p`
   min-width: 30px;
   max-width: 30px;
   font-weight: bold;
+  cursor: default;
 `;
 
 export const CalendarContainer = styled.div`
@@ -101,10 +104,10 @@ export const DaysOfMonthContainer = styled.div`
   flex: 1;
   button {
     background-color: white;
-    transition: background-color 0.1s linear;
   }
   .selected {
-    background-color: ${Colors.textTertiary};
+    transition: all 0.2s linear;
+    background-color: ${Colors.textTertiary} !important;
   }
 `;
 
@@ -118,11 +121,10 @@ export const DaysOfMonthButton = styled.button`
   padding: 0;
   align-self: center;
   background-color: white;
-  transition: background-color 0.5s linear;
-  transition: transform 0.5s linear;
+  transition: all 0.3s linear;
   :enabled:hover {
-    background-color: #a3a3a3;
-    transform: scale(1.05);
+    background-color: #dadada;
     cursor: pointer;
+    transition: all 0.3s linear;
   }
 `;

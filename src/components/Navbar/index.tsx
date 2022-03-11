@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { NavbarContainer } from "./styles";
-import { Logo, SearchBox } from "../index";
+import { Logo, SearchBox, SignUpButton, LoginButton } from "../index";
 
 interface NavbarProps {}
 
@@ -10,6 +10,8 @@ const Navbar: FC<NavbarProps> = (props) => {
       <Logo />
       <SearchBox />
       {/* <Buttons /> */}
+      <SignUpButton />
+      <LoginButton />
     </NavbarContainer>
   );
 };

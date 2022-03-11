@@ -1,9 +1,5 @@
-import { FC, useEffect, useState, useRef } from "react";
-import {
-  Animate,
-  useAnimateGroup,
-  AnimateKeyframes,
-} from "react-simple-animate";
+import { FC, useEffect, useState } from "react";
+import { useAnimateGroup } from "react-simple-animate";
 import {
   BackDrop,
   CalendarContainer,
@@ -28,6 +24,8 @@ import chevronRight from "../../assets/icons/chevron-right.svg";
 interface DatePickerProps {
   openDatePicker: boolean;
   closeDatePicker: () => void;
+  preSelectedDate?: Date;
+  getDate: (date: Date | undefined) => void;
 }
 
 interface IDaysOfCalendar {
@@ -36,12 +34,12 @@ interface IDaysOfCalendar {
 }
 
 const DatePicker: FC<DatePickerProps> = (props) => {
-  const { openDatePicker, closeDatePicker } = props;
+  const { openDatePicker, closeDatePicker, preSelectedDate, getDate } = props;
   const { play, styles, isPlaying } = useAnimateGroup({
     sequences: [
       {
-        start: { pointerEvents: "none", opacity: 0 },
-        end: { pointerEvents: "auto", opacity: 0.4 },
+        start: { pointerEvents: "none", backgroundColor: "rgba(0,0,0,0)" },
+        end: { pointerEvents: "auto", backgroundColor: "rgba(0,0,0,0.4)" },
         duration: 0.3,
         easeType: "linear",
       },
@@ -62,13 +60,23 @@ const DatePicker: FC<DatePickerProps> = (props) => {
 
   const closeBackDrop = () => {
     play(!isPlaying);
-    closeDatePicker();
+    setTimeout(() => {
+      closeDatePicker();
+    }, 400);
   };
 
-  const [selectedDay, setSelectedDay] = useState(0);
+  const [selectedDay, setSelectedDay] = useState(
+    preSelectedDate?.getDate() || 0
+  );
+  const [highlightedDay, setHighlightedDay] = useState("");
   const [daysOfCalendar, setDaysOfCalendar] = useState<IDaysOfCalendar[]>([]);
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [firstRender, setFirstRender] = useState(true);
+  const [selectedMonth, setSelectedMonth] = useState(
+    preSelectedDate?.getMonth() || new Date().getMonth()
+  );
+  const [selectedYear, setSelectedYear] = useState(
+    preSelectedDate?.getFullYear() || new Date().getFullYear()
+  );
 
   const DaysOfWeek = ["D", "S", "T", "Q", "Q", "S", "S"];
 
@@ -106,12 +114,24 @@ const DatePicker: FC<DatePickerProps> = (props) => {
       tempCalendar.push({ day: firstDayOfCalendar, isSelectedMonth: false });
       firstDayOfCalendar++;
     }
-    let num = daysInMonth(2022, 2);
+    let num = daysInMonth(selectedYear, selectedMonth);
     for (let i = 1; i <= num; i++) {
       tempCalendar.push({ day: i, isSelectedMonth: true });
     }
     for (let i = 1; tempCalendar.length < 42; i++) {
       tempCalendar.push({ day: i, isSelectedMonth: false });
+    }
+    //`${selectedYear}-${selectedMonth}-${date.day}-${index}`
+    if (preSelectedDate && firstRender) {
+      const index = tempCalendar.findIndex((day, index) => {
+        if (day.isSelectedMonth && day.day === preSelectedDate.getDate()) {
+          return index;
+        }
+      });
+      setHighlightedDay(
+        `${preSelectedDate.getFullYear()}-${preSelectedDate.getMonth()}-${preSelectedDate.getDate()}-${index}`
+      );
+      setFirstRender(false);
     }
     setDaysOfCalendar(tempCalendar);
   };
@@ -141,22 +161,28 @@ const DatePicker: FC<DatePickerProps> = (props) => {
   };
 
   const selectDay = (day: number, index: number) => {
+    if (day === selectedDay) {
+      return;
+    }
     const calendarButtons = document.getElementsByClassName("Cb");
     Array.prototype.forEach.call(calendarButtons, (button) => {
       button.classList.remove("selected");
     });
-    if (day === selectedDay) {
-      setSelectedDay(0);
-    } else {
-      setSelectedDay(day);
-      const dayButton = document.getElementById(`${day}-${index}`);
-      dayButton?.classList.add("selected");
-    }
+    setSelectedDay(day);
+    getDate(new Date(selectedYear, selectedMonth, day));
+    const dayButton = document.getElementById(
+      `${selectedYear}-${selectedMonth}-${day}`
+    );
+    setHighlightedDay(`${selectedYear}-${selectedMonth}-${day}-${index}`);
+    dayButton?.classList.add("selected");
   };
 
   return (
-    <BackDrop style={styles[0] || undefined} /*onClick={closeBackDrop} */>
-      <DatePickerContainer style={styles[1] || undefined}>
+    <BackDrop style={styles[0] || undefined} onClick={closeBackDrop}>
+      <DatePickerContainer
+        style={styles[1] || undefined}
+        onClick={(e) => e.stopPropagation()}
+      >
         <HeaderContainer>
           <ChangeButton onClick={() => changeYear("back")}>
             <IconContainer src={chevronDoubleLeft} />
@@ -187,8 +213,13 @@ const DatePicker: FC<DatePickerProps> = (props) => {
             {daysOfCalendar.map((date, index) => {
               return (
                 <DaysOfMonthButton
-                  id={`${date.day}-${index}`}
-                  className="Cb"
+                  id={`${selectedYear}-${selectedMonth}-${date.day}-${index}`}
+                  className={
+                    `${selectedYear}-${selectedMonth}-${date.day}-${index}` ===
+                    highlightedDay
+                      ? "Cb selected"
+                      : "Cb"
+                  }
                   disabled={!date.isSelectedMonth}
                   key={date.day + "-" + index}
                   onClick={() => selectDay(date.day, index)}
