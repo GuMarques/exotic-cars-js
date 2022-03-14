@@ -13,6 +13,7 @@ export const SecondContainer = styled.div`
   flex-direction: row;
   align-items: flex-end;
   width: fit-content;
+  cursor: pointer;
 `;
 
 export const LogoExotic = styled.h1`
