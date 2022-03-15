@@ -9,13 +9,17 @@ export const CarsBoard = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   margin-top: 45px;
 
   /* #1- Small devices - Portrait phones */
   @media (max-width: 575.98px) {
     padding-left: 5px;
     padding-right: 5px;
+  }
+
+  @media (max-width: 942px) {
+    justify-content: space-around;
   }
 
   /* #1- Small devices - Landscape phones */

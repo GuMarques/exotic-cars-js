@@ -5,112 +5,144 @@
       "brand": "Ferrari",
       "model": "California",
       "price": "725",
-      "logo": "ferrari-logo"
+      "logo": "ferrari-logo",
+      "number": 1,
+      "color": "red"
     },
     {
       "id": "ac02",
-      "brand": "Porsche",
-      "model": "911 Turbo S",
+      "brand": "Chevrolet",
+      "model": "Opala",
       "price": "725",
-      "logo": "porsche-logo"
+      "logo": "chevrolet-logo",
+      "number": 2,
+      "color": "yellow"
     },
     {
       "id": "ac03",
-      "brand": "Porsche",
-      "model": "911 Turbo S",
+      "brand": "Ford",
+      "model": "Focus",
       "price": "725",
-      "logo": "porsche-logo"
+      "logo": "ford-logo",
+      "number": 3,
+      "color": "black"
     },
     {
       "id": "ac04",
-      "brand": "Porsche",
-      "model": "911 Turbo S",
+      "brand": "Chevrolet",
+      "model": "Astra",
       "price": "725",
-      "logo": "porsche-logo"
+      "logo": "chevrolet-logo",
+      "number": 4,
+      "color": "silver"
     },
     {
       "id": "ac05",
       "brand": "Porsche",
       "model": "911 GT3 RS",
       "price": "825",
-      "logo": "porsche-logo"
+      "logo": "porsche-logo",
+      "number": 5,
+      "color": "golden"
     },
     {
       "id": "ac06",
       "brand": "Bentley",
       "model": "Continental GT",
       "price": "825",
-      "logo": "bentley-logo"
+      "logo": "bentley-logo",
+      "number": 6,
+      "color": "blue"
     },
     {
       "id": "ac07",
       "brand": "BMW",
       "model": "M1 Competition",
       "price": "825",
-      "logo": "bmw-logo"
+      "logo": "bmw-logo",
+      "number": 7,
+      "color": "white"
     },
     {
       "id": "ac08",
       "brand": "Alfa Romeo",
       "model": "4c spider",
       "price": "825",
-      "logo": "alfaromeo-logo"
+      "logo": "alfaromeo-logo",
+      "number": 8,
+      "color": "yellow"
     },
     {
       "id": "ac09",
       "brand": "Mclaren",
       "model": "P1 GTR",
       "price": "925",
-      "logo": "mclaren-logo"
+      "logo": "mclaren-logo",
+      "number": 9,
+      "color": "blue"
     },
     {
       "id": "ac10",
       "brand": "Lamborghini",
       "model": "Aventador",
       "price": "925",
-      "logo": "lamborguini-logo"
+      "logo": "lamborghini-logo",
+      "number": 10,
+      "color": "orange"
     },
     {
       "id": "ac11",
       "brand": "Bugatti",
       "model": "Veyron Spyder",
       "price": "925",
-      "logo": "bugatti-logo"
+      "logo": "bugatti-logo",
+      "number": 11,
+      "color": "blue"
     },
     {
       "id": "ac12",
       "brand": "Chevrolet",
       "model": "Corvett",
       "price": "925",
-      "logo": "chevrolet"
+      "logo": "chevrolet-logo",
+      "number": 12,
+      "color": "white"
     },
     {
       "id": "ac13",
       "brand": "Ferrari",
-      "model": "ac01",
-      "price": "ac01",
-      "logo": "ac01"
+      "model": "480 Spider",
+      "price": "725",
+      "logo": "ferrari-logo",
+      "number": 13,
+      "color": "red"
     },
     {
       "id": "ac14",
       "brand": "Rolls-Royce",
       "model": "Wraith",
       "price": "725",
-      "logo": "rolls-royce-logo"
+      "logo": "rolls-royce-logo",
+      "number": 14,
+      "color": "red"
     },
     {
       "id": "ac15",
-      "brand": "Po",
-      "model": "ac01",
-      "price": "ac01",
-      "logo": "ac01"
+      "brand": "Porsche",
+      "model": "911 Turbo S",
+      "price": "725",
+      "logo": "porsche-logo",
+      "number": 15,
+      "color": "white"
     },
     {
       "id": "ac16",
       "brand": "Mercedes-benz",
       "model": "AMG GTS",
       "price": "725",
-      "logo": "mercedes-logo"
+      "logo": "mercedes-logo",
+      "number": 16,
+      "color": "silver"
     }
   ]
 }

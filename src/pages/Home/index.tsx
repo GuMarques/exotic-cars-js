@@ -1,18 +1,37 @@
 import { FC } from "react";
 import { Navbar } from "../../components";
 import Card from "../../components/Card";
-import imagem from "../../assets/images/ac01.png";
 import { CarsBoard } from "./styles";
+import data from "../../dummyData.json";
+import images from "../../shared/utils/import-images";
+import CustomLink from "../../components/CustomLink";
 
 interface HomeProps {}
+
+interface Car {
+  id: string;
+  brand: string;
+  model: string;
+  price: number;
+}
 
 const Home: FC<HomeProps> = (props) => {
   return (
     <>
       <Navbar />
       <CarsBoard>
-      <Card brand="Ferrari" model="California" price={725} image={imagem} />
-      <Card brand="Ferrari" model="California" price={725} image={imagem} />
+        {data.cars.map((car: any) => {
+          return (
+            <CustomLink to={`/details/${car.id}`} key={car.id}>
+              <Card
+                brand={car.brand}
+                model={car.model}
+                price={car.price}
+                image={images[`${car.id}.png`]}
+              />
+            </CustomLink>
+          );
+        })}
       </CarsBoard>
     </>
   );

@@ -1,13 +1,16 @@
 import { FC } from "react";
+import CustomLink from "../CustomLink";
 import { LogoContainer, LogoExotic, LogoCars, SecondContainer } from "./styles";
 
 const Logo: FC<{}> = (_) => {
   return (
     <LogoContainer>
-      <SecondContainer>
-      <LogoExotic>Exotic</LogoExotic>
-      <LogoCars>Cars</LogoCars>
-      </SecondContainer>
+      <CustomLink to="/">
+        <SecondContainer>
+          <LogoExotic>Exotic</LogoExotic>
+          <LogoCars>Cars</LogoCars>
+        </SecondContainer>
+      </CustomLink>
     </LogoContainer>
   );
 };
