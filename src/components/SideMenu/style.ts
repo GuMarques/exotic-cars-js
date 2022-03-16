@@ -14,6 +14,7 @@ export const MenuContainer = styled.div<{ width: number }>`
   @media (max-width: 767.98px) {
     margin-top: 56px;
   }
+  z-index: 2;
 `;
 
 export const DisplayOrganizer = styled.div`

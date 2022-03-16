@@ -17,7 +17,7 @@ interface Car {
 
 const Home: FC<HomeProps> = (props) => {
   return (
-    <>
+    <div>
       <Navbar />
       <CarsBoard>
         {data.cars.map((car: any) => {
@@ -33,7 +33,7 @@ const Home: FC<HomeProps> = (props) => {
           );
         })}
       </CarsBoard>
-    </>
+    </div>
   );
 };
 
