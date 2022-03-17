@@ -9,6 +9,7 @@ export const CardContainer = styled.div`
   flex-direction: column;
   border-radius: 13px;
   justify-content: center;
+  padding-bottom: 10px;
   p {
     margin: 0;
   }

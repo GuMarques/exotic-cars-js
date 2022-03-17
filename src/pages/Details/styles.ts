@@ -147,12 +147,14 @@ export const IconContainer = styled.img`
 
 export const CarImage = styled.img`
   margin-top: 96px;
-  width: 100%;
-  max-width: 783px;
+  height: 380px;
   @media (max-width: 992px) {
     margin-top: 0;
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
+    max-width: 783px;
+    height: auto;
   }
 `;
 
@@ -195,21 +197,27 @@ export const CarText = styled.p`
 export const SlideCard = styled.div`
   background: #cecece 0% 0% no-repeat padding-box;
   margin-left: 0;
-  max-width: 50%;
+  max-width: 70%;
   position: relative;
-  margin: 0 auto;
+  margin-left: 20px;
+  /* margin: 0 auto; */
   background-color: #c0c2c2;
   border-radius: 8px;
   box-shadow: 0px 8px 20px #0000001a;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 170px;
+  @media (max-width: 992px) {
+    height: auto;
+  }
 `;
 
 export const SlideCarImage = styled.img`
   position: relative;
   max-width: 130%;
-  right: -10%;
+  max-height: 98%;
+  right: -12%;
 `;
 
 export const SlideContainer = styled.div`
@@ -220,6 +228,8 @@ export const SlideContainer = styled.div`
   height: max-content;
   padding-bottom: 20px;
   padding-top: 20px;
+  min-height: 240px;
+  margin-bottom: 20px;
 `;
 
 export const SildeArrow = styled.button`

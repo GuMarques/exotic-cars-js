@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, LegacyRef, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../components";
 import CustomLink from "../../components/CustomLink";
@@ -6,12 +6,8 @@ import data from "../../dummyData.json";
 import { FormatCarNumber } from "../../shared/utils/format-carnumbers";
 import images from "../../shared/utils/import-images";
 import back from "../../assets/icons/arrow-left.svg";
-import { Navigation, Pagination, EffectCoverflow } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/effect-coverflow";
+import AliceCarousel from "react-alice-carousel";
+import "react-alice-carousel/lib/alice-carousel.css";
 import {
   BackButton,
   CarImage,
@@ -43,11 +39,13 @@ function findData(id: string) {
 
 const Details: FC<DetailsProps> = (props) => {
   const params = useParams();
+  const selectedCar = findData(params.id || "ac01");
+  const carouselRef = useRef<AliceCarousel>(null);
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
   });
-
+  const [car, setCar] = useState(findData(params.id || "ac01"));
   const setDimension = () => {
     getDimension({
       dynamicWidth: window.innerWidth,
@@ -63,32 +61,16 @@ const Details: FC<DetailsProps> = (props) => {
     };
   }, [screenSize]);
 
-  const renderCarsSlide = () => {
-    let lastCar = car;
-    let render: React.ReactElement[] = [];
-    for (let i = 0; i < 15; i++) {
-      let nextCar = data.cars.find((value) => {
-        if (lastCar!.number === 16) {
-          return value.number === 1;
-        }
-        return value.number === lastCar!.number + 1;
-      });
-      render.push(
-        <SwiperSlide key={new Date() + "-" + nextCar?.id}>
-          <SlideCard className="card-slide">
-            <SlideCarImage src={images[`${nextCar?.id}-side.png`]} />
-          </SlideCard>
-        </SwiperSlide>
-      );
-      lastCar = nextCar;
+  const slideChangeHandler = (id: string | undefined) => {
+    console.log(id);
+    if (!id) {
+      setCar(selectedCar);
+      return;
     }
-
-    return render;
+    setCar(findData(id!));
   };
-
-  const car = findData(params.id || "ac01");
   return (
-    <div>
+    <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Navbar />
       <OuterContainer>
         <CarShow>
@@ -114,43 +96,45 @@ const Details: FC<DetailsProps> = (props) => {
           </CarInfo>
         </CarShow>
         <SlideContainer>
-          <SildeArrow className="prev" style={{ order: 1 }}>
+          <SildeArrow
+            className="prev"
+            onClick={(e) => carouselRef.current?.slidePrev(e)}
+          >
             <SlideArrowIcon src={back} />
           </SildeArrow>
-          <SildeArrow className="next" style={{ order: 3 }}>
+          <SildeArrow
+            className="next"
+            style={{ order: 3 }}
+            onClick={(e) => carouselRef.current?.slideNext(e)}
+          >
             <SlideArrowIcon src={back} right />
           </SildeArrow>
-          <Swiper
-            style={{ order: 2 }}
-            modules={[Navigation, EffectCoverflow]}
-            effect={"coverflow"}
-            centeredSlides={true}
-            loopedSlides={2}
-            coverflowEffect={{
-              rotate: 0,
-              stretch: 0,
-              depth: 300,
-              modifier: 1,
-              slideShadows: false,
-            }}
-            slidesPerView={screenSize.dynamicWidth > 991 ? 2.18 : 1}
-            navigation={{
-              prevEl: ".prev",
-              nextEl: ".next",
-            }}
-            loop={true}
-            allowTouchMove
+          <AliceCarousel
+            responsive={responsive}
+            disableDotsControls
+            disableButtonsControls
+            infinite
+            ref={carouselRef}
           >
-            <SwiperSlide>
-              <SlideCard className="card-slide">
-                <SlideCarImage src={images[`${car?.id}-side.png`]} />
-              </SlideCard>
-            </SwiperSlide>
-            {renderCarsSlide()}
-          </Swiper>
+            <SlideCard>
+              <SlideCarImage src={images[`ac02-side.png`]} />
+            </SlideCard>
+            <SlideCard>
+              <SlideCarImage src={images[`ac06-side.png`]} />
+            </SlideCard>
+            <SlideCard>
+              <SlideCarImage src={images[`ac08-side.png`]} />
+            </SlideCard>
+          </AliceCarousel>
         </SlideContainer>
       </OuterContainer>
     </div>
   );
 };
+
+const responsive = {
+  0: { items: 1 },
+  991: { items: 3 },
+};
+
 export default Details;
