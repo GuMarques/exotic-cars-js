@@ -1,12 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Navbar } from "../../components";
-import CustomLink from "../../components/CustomLink";
-import data from "../../dummyData.json";
-import { FormatCarNumber } from "../../shared/utils/format-carnumbers";
-import images from "../../shared/utils/import-images";
-import back from "../../assets/icons/arrow-left.svg";
+import back from "@assets/icons/arrow-left.svg";
+import { CustomLink, Navbar } from "@components/index";
+import { FormatCarNumber } from "@shared/utils/format-carnumbers";
+import images from "@shared/utils/import-images";
+import data from "@src/dummyData.json";
+import { FC, useEffect, useState } from "react";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { useParams } from "react-router-dom";
 import {
   Arrow,
   ArrowIcon,
@@ -29,8 +28,6 @@ import {
   SlideImage,
 } from "./styles";
 
-interface DetailsProps {}
-
 function findData(id: string) {
   return (
     data.cars.find((value) => {
@@ -39,7 +36,7 @@ function findData(id: string) {
   );
 }
 
-const Details: FC<DetailsProps> = (props) => {
+const Details: FC<{}> = (_) => {
   const params = useParams();
   const [selectedCar, setSelectedCar] = useState(findData(params.id || "ac01"));
   const [secondCar, setSecondCar] = useState(

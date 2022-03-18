@@ -1,6 +1,4 @@
-import React from "react";
 import { Home } from "./pages";
-import ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Details from "./pages/Details";
 

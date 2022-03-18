@@ -1,21 +1,10 @@
+import { Card, CustomLink, Navbar } from "@components/index";
+import images from "@shared/utils/import-images";
+import data from "@src/dummyData.json";
 import { FC } from "react";
-import { Navbar } from "../../components";
-import Card from "../../components/Card";
 import { CarsBoard } from "./styles";
-import data from "../../dummyData.json";
-import images from "../../shared/utils/import-images";
-import CustomLink from "../../components/CustomLink";
 
-interface HomeProps {}
-
-interface Car {
-  id: string;
-  brand: string;
-  model: string;
-  price: number;
-}
-
-const Home: FC<HomeProps> = (props) => {
+const Home: FC<{}> = (_) => {
   return (
     <div>
       <Navbar />
