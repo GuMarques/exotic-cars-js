@@ -20,11 +20,14 @@ export const LogoExotic = styled.h1`
   color: ${Colors.textPrimary};
   text-transform: uppercase;
   font-size: 1.5rem;
-  line-height: 1.5rem;
+  line-height: 56px;
   font-weight: 600;
   margin: 0;
   margin-right: 0.3125rem;
   letter-spacing: 0.06rem;
+  @media (min-width: 767.99px) and (max-width: 991.98px) {
+    line-height: 83px;
+  }
 `;
 
 export const LogoCars = styled.h1`
@@ -33,6 +36,9 @@ export const LogoCars = styled.h1`
   letter-spacing: 0.04rem;
   font-weight: 500;
   font-size: 1rem;
-  line-height: 1rem;
+  line-height: 56px;
   margin: 0;
+  @media (min-width: 767.99px) and (max-width: 991.98px) {
+    line-height: 83px;
+  }
 `;

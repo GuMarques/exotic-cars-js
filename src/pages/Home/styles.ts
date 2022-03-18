@@ -9,7 +9,7 @@ export const CarsBoard = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   margin-top: 45px;
 
   /* #1- Small devices - Portrait phones */

@@ -10,6 +10,9 @@ export const CardContainer = styled.div`
   border-radius: 13px;
   justify-content: center;
   padding-bottom: 10px;
+  padding-top: 10px;
+  background-color: #f8f8fa;
+  margin: 10px;
   p {
     margin: 0;
   }

@@ -4,6 +4,9 @@ export const OuterContainer = styled.div`
   /* #1- Small devices - Portrait phones */
   background: rgb(255, 255, 255);
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 1) 0%,
@@ -36,15 +39,6 @@ export const OuterContainer = styled.div`
   @media (min-width: 1199.99px) {
     padding-left: 112px;
     padding-right: 91px;
-  }
-  /* padding-bottom: 100px; */
-
-  .swiper-slide-active .card-slide {
-    background: linear-gradient(
-      90deg,
-      rgba(161, 167, 244, 0.8) 0%,
-      rgba(230, 211, 241, 0.8) 100%
-    );
   }
 `;
 
@@ -194,63 +188,72 @@ export const CarText = styled.p`
   text-transform: capitalize;
 `;
 
-export const SlideCard = styled.div`
-  background: #cecece 0% 0% no-repeat padding-box;
-  margin-left: 0;
-  max-width: 70%;
-  position: relative;
-  margin-left: 20px;
-  /* margin: 0 auto; */
-  background-color: #c0c2c2;
-  border-radius: 8px;
-  box-shadow: 0px 8px 20px #0000001a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 170px;
-  @media (max-width: 992px) {
-    height: auto;
-  }
-`;
-
-export const SlideCarImage = styled.img`
-  position: relative;
-  max-width: 130%;
-  max-height: 98%;
-  right: -12%;
-`;
-
-export const SlideContainer = styled.div`
+export const CarsNavigation = styled.div`
   display: flex;
   flex-direction: row;
+  margin-bottom: 30px;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  height: max-content;
-  padding-bottom: 20px;
-  padding-top: 20px;
-  min-height: 240px;
-  margin-bottom: 20px;
 `;
 
-export const SildeArrow = styled.button`
-  width: 42px;
-  height: 42px;
+export const Arrow = styled.button`
+  margin: 5px;
   background-color: #313136;
   box-shadow: 0px 3px 6px #00000029;
+  width: 42px;
+  height: 42px;
   border-radius: 100px;
   border: none;
-  margin: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  z-index: 1;
 `;
 
-export const SlideArrowIcon = styled.img<{ right?: boolean }>`
-  width: 32px;
-  padding-left: 5px;
-  padding-right: 5px;
-  transform: ${({ right }) => (right ? "scaleX(-1)" : null)};
-  filter: invert(100%) sepia(100%) saturate(2%) hue-rotate(71deg)
-    brightness(106%) contrast(101%);
+export const ArrowIcon = styled.img<{ right?: boolean }>`
+  width: 24px;
+  transform: ${({ right }) => (right ? "scaleX(-1)" : "none")};
+  filter: invert(96%) sepia(9%) saturate(0%) hue-rotate(88deg) brightness(103%)
+    contrast(105%);
+`;
+
+export const CarInactive = styled.div`
+  background: #cecece 0% 0% no-repeat padding-box;
+  box-shadow: 0px 8px 20px #0000001a;
+  max-height: 180px;
+  max-width: 232px;
+  width: 100%;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  @media (max-width: 932px) {
+    width: 180px;
+  }
+`;
+export const CarActive = styled.div`
+  background: transparent linear-gradient(52deg, #a1a7f4 0%, #e6d3f1 100%) 0% 0%
+    no-repeat padding-box;
+  box-shadow: 0px 8px 20px #0000001a;
+  max-height: 240px;
+  min-width: 200px;
+  max-width: 310px;
+  width: 100%;
+  height: 240px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  @media (max-width: 550px) {
+    width: 280px;
+  }
+`;
+
+export const SlideImage = styled.img`
+  width: 100%;
+  position: relative;
+  left: 20px;
 `;

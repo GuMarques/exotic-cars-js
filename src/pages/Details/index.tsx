@@ -1,4 +1,4 @@
-import React, { FC, LegacyRef, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Navbar } from "../../components";
 import CustomLink from "../../components/CustomLink";
@@ -6,14 +6,18 @@ import data from "../../dummyData.json";
 import { FormatCarNumber } from "../../shared/utils/format-carnumbers";
 import images from "../../shared/utils/import-images";
 import back from "../../assets/icons/arrow-left.svg";
-import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import {
+  Arrow,
+  ArrowIcon,
   BackButton,
+  CarActive,
   CarImage,
+  CarInactive,
   CarInfo,
   CarNumber,
   CarShow,
+  CarsNavigation,
   CarText,
   Header,
   HeaderInfos,
@@ -22,25 +26,32 @@ import {
   Name,
   OuterContainer,
   Price,
-  SildeArrow,
-  SlideArrowIcon,
-  SlideCard,
-  SlideCarImage,
-  SlideContainer,
+  SlideImage,
 } from "./styles";
 
 interface DetailsProps {}
 
 function findData(id: string) {
-  return data.cars.find((value) => {
-    return value.id === id;
-  });
+  return (
+    data.cars.find((value) => {
+      return value.id === id;
+    }) || data.cars[0]
+  );
 }
 
 const Details: FC<DetailsProps> = (props) => {
   const params = useParams();
-  const selectedCar = findData(params.id || "ac01");
-  const carouselRef = useRef<AliceCarousel>(null);
+  const [selectedCar, setSelectedCar] = useState(findData(params.id || "ac01"));
+  const [secondCar, setSecondCar] = useState(
+    selectedCar?.number === 1
+      ? data.cars[15]
+      : data.cars[data.cars.indexOf(selectedCar!) - 1]
+  );
+  const [thirtyCar, setThirtyCar] = useState(
+    selectedCar?.number === 16
+      ? data.cars[0]
+      : data.cars[data.cars.indexOf(selectedCar!) + 1]
+  );
   const [screenSize, getDimension] = useState({
     dynamicWidth: window.innerWidth,
     dynamicHeight: window.innerHeight,
@@ -61,26 +72,30 @@ const Details: FC<DetailsProps> = (props) => {
     };
   }, [screenSize]);
 
-  const slideChangeHandler = (id: string | undefined) => {
-    console.log(id);
-    if (!id) {
-      setCar(selectedCar);
-      return;
-    }
-    setCar(findData(id!));
+  const nextClickHandler = () => {
+    setSelectedCar(thirtyCar);
+    setThirtyCar(secondCar);
+    setSecondCar(selectedCar);
   };
+
+  const prevClickHandler = () => {
+    setSelectedCar(secondCar);
+    setThirtyCar(selectedCar);
+    setSecondCar(thirtyCar);
+  };
+
   return (
     <div style={{ height: "100%", display: "flex", flexDirection: "column" }}>
       <Navbar />
       <OuterContainer>
         <CarShow>
           <Header>
-            <Logo src={images[`${car?.logo}.png`]} />
+            <Logo src={images[`${selectedCar?.logo}.png`]} />
             <HeaderInfos>
               <Name>
-                {car?.brand} {car?.model}
+                {selectedCar?.brand} {selectedCar?.model}
               </Name>
-              <Price>${car?.price}/day</Price>
+              <Price>${selectedCar?.price}/day</Price>
             </HeaderInfos>
           </Header>
           <CustomLink to="/">
@@ -89,52 +104,36 @@ const Details: FC<DetailsProps> = (props) => {
               Back to catalog
             </BackButton>
           </CustomLink>
-          <CarImage src={images[`${car?.id}-side.png`]} />
+          <CarImage src={images[`${selectedCar?.id}-side.png`]} />
           <CarInfo>
-            <CarNumber>{FormatCarNumber(car?.number || 0)} </CarNumber>
-            <CarText>{car?.color}</CarText>
+            <CarNumber>{FormatCarNumber(selectedCar?.number || 0)} </CarNumber>
+            <CarText>{selectedCar?.color}</CarText>
           </CarInfo>
         </CarShow>
-        <SlideContainer>
-          <SildeArrow
-            className="prev"
-            onClick={(e) => carouselRef.current?.slidePrev(e)}
-          >
-            <SlideArrowIcon src={back} />
-          </SildeArrow>
-          <SildeArrow
-            className="next"
-            style={{ order: 3 }}
-            onClick={(e) => carouselRef.current?.slideNext(e)}
-          >
-            <SlideArrowIcon src={back} right />
-          </SildeArrow>
-          <AliceCarousel
-            responsive={responsive}
-            disableDotsControls
-            disableButtonsControls
-            infinite
-            ref={carouselRef}
-          >
-            <SlideCard>
-              <SlideCarImage src={images[`ac02-side.png`]} />
-            </SlideCard>
-            <SlideCard>
-              <SlideCarImage src={images[`ac06-side.png`]} />
-            </SlideCard>
-            <SlideCard>
-              <SlideCarImage src={images[`ac08-side.png`]} />
-            </SlideCard>
-          </AliceCarousel>
-        </SlideContainer>
+        <CarsNavigation>
+          <Arrow onClick={prevClickHandler}>
+            <ArrowIcon src={back} />
+          </Arrow>
+          {screenSize.dynamicWidth > 809 && (
+            <CarInactive>
+              <SlideImage src={images[`${secondCar?.id}-side.png`]} />
+            </CarInactive>
+          )}
+          <CarActive>
+            <SlideImage src={images[`${selectedCar?.id}-side.png`]} />
+          </CarActive>
+          {screenSize.dynamicWidth > 809 && (
+            <CarInactive>
+              <SlideImage src={images[`${thirtyCar?.id}-side.png`]} />
+            </CarInactive>
+          )}
+          <Arrow onClick={nextClickHandler}>
+            <ArrowIcon src={back} right />
+          </Arrow>
+        </CarsNavigation>
       </OuterContainer>
     </div>
   );
-};
-
-const responsive = {
-  0: { items: 1 },
-  991: { items: 3 },
 };
 
 export default Details;
